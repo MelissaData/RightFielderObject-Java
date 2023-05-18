@@ -39,6 +39,10 @@ And return
 
 This is the c++ code of the Melissa Object. This file will be downloaded by Melissa Updater!
 
+#### mdRightFielderJavaWrapper.dll
+
+This file needs to be added as a Project Dependency.  This wrapper will need to be in the same directory as the program using it.
+
 #### Data File(s)
 
 - mdRightFielder.cfg
@@ -155,7 +159,7 @@ Troubleshooting for errors found while running your program.
 ## Contact Us
 
 For free technical support, please call us at 800-MELISSA ext. 4
-(800-635-4772 ext. 4) or email us at tech@MelissaData.com.
+(800-635-4772 ext. 4) or email us at tech@Melissa.com.
 
 To purchase this product, contact Melissa sales department at
 800-MELISSA ext. 3 (800-635-4772 ext. 3).

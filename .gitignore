@@ -18,12 +18,10 @@
 
 Data/
 
+
 mdRightFielder.dll
 mdRightFielder.dll.hash
 libmdRightFielder.so
 libmdRightFielder.so.hash
-
-#include
-!mdRightFielder.jar
 
 
