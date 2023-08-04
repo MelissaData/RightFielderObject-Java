@@ -1,14 +1,13 @@
 # Name:    MelissaRightFielderObjectWindowsJava
 # Purpose: Use the Melissa Updater to make the MelissaRightFielderObjectWindowsJava code usable
 
-
 ######################### Parameters ##########################
 
 param($rfinput = '', $license = '', [switch]$quiet = $false )
 
 ######################### Classes ##########################
 
-class DLLConfig {
+class FileConfig {
   [string] $FileName;
   [string] $ReleaseVersion;
   [string] $OS;
@@ -19,7 +18,7 @@ class DLLConfig {
 
 ######################### Config ###########################
 
-$RELEASE_VERSION = '2023.06'
+$RELEASE_VERSION = '2023.07'
 $ProductName = "RF_DATA"
 
 # Uses the location of the .ps1 file 
@@ -28,25 +27,38 @@ $CurrentPath = $PSScriptRoot
 Set-Location $CurrentPath
 $ProjectPath = "$CurrentPath\MelissaRightFielderObjectWindowsJava"
 $DataPath = "$ProjectPath\Data"
-#$BuildPath = "$ProjectPath\Build"
 
 If (!(Test-Path $DataPath)) {
   New-Item -Path $ProjectPath -Name 'Data' -ItemType "directory"
 }
 
-# If (!(Test-Path $BuildPath)) {
-#   New-Item -Path $ProjectPath -Name 'Build' -ItemType "directory"
-# }
-
-
 $DLLs = @(
-  [DLLConfig]@{
+  [FileConfig]@{
     FileName       = "mdRightFielder.dll";
     ReleaseVersion = $RELEASE_VERSION;
     OS             = "WINDOWS";
     Compiler       = "DLL";
     Architecture   = "64BIT";
     Type           = "BINARY";
+  }
+)
+
+$WrapperCom = @(
+  [FileConfig]@{
+    FileName       = "mdRightFielderJavaWrapper.dll";
+    ReleaseVersion = $RELEASE_VERSION;
+    OS             = "WINDOWS";
+    Compiler       = "JAVA";
+    Architecture   = "64BIT";
+    Type           = "INTERFACE";
+  },
+  [FileConfig]@{
+    FileName       = "mdRightFielder_JavaCode.zip";
+    ReleaseVersion = $RELEASE_VERSION;
+    OS             = "ANY";
+    Compiler       = "ANY";
+    Architecture   = "ANY";
+    Type           = "DATA";
   }
 )
 
@@ -92,6 +104,50 @@ function DownloadDLLs() {
     $DLLProg++
   }
 }
+
+function DownloadWrappers() {
+  foreach ($File in $WrapperCom) {
+    # Check for quiet mode
+    if ($quiet) {
+      .\MelissaUpdater\MelissaUpdater.exe file --filename $File.FileName --release_version $File.ReleaseVersion --license $LICENSE --os $File.OS --compiler $File.Compiler --architecture $File.Architecture --type $File.Type --target_directory $ProjectPath > $null
+      if (($?) -eq $False) {
+        Write-Host "`nCannot run Melissa Updater. Please check your license string!"
+        Exit
+      }
+    }
+    else {
+      .\MelissaUpdater\MelissaUpdater.exe file --filename $File.FileName --release_version $File.ReleaseVersion --license $LICENSE --os $File.OS --compiler $File.Compiler --architecture $File.Architecture --type $File.Type --target_directory $ProjectPath 
+      if (($?) -eq $False) {
+        Write-Host "`nCannot run Melissa Updater. Please check your license string!"
+        Exit
+      }
+    }
+      
+    Write-Host "Melissa Updater finished downloading " $File.FileName "!"
+
+    # Check for the zip folder and extract from the zip folder if it was downloaded
+    if ($File.FileName -eq "mdRightFielder_JavaCode.zip") {
+      if (!(Test-Path ("$ProjectPath\mdRightFielder_JavaCode.zip"))) {
+        Write-Host "mdRightFielder_JavaCode.zip not found." 
+        
+        Write-Host "`nAborting program, see above.  Press any button to exit."
+        $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+        exit
+      }
+      else {
+        if (!(Test-Path ("$ProjectPath/com"))) {
+        Expand-Archive -Path "$ProjectPath\mdRightFielder_JavaCode.zip" -DestinationPath $ProjectPath
+        }
+        else {
+          # Remove the com folder before extracting
+          Remove-Item -Path "$ProjectPath/com" -Recurse -Force
+
+          Expand-Archive -Path "$ProjectPath\mdRightFielder_JavaCode.zip" -DestinationPath $ProjectPath
+        }
+      }
+    }
+  }
+}
   
 function CheckDLLs() {
   Write-Host "`nDouble checking dll(s) were downloaded...`n"
@@ -109,10 +165,9 @@ function CheckDLLs() {
   }
 }
   
-  
 ########################## Main ############################
   
-Write-Host "`n======================= Melissa Right Fielder Object =======================`n                    [ Java | Windows | 64BIT ]`n"
+Write-Host "`n======================= Melissa Right Fielder Object =======================`n                         [ Java | Windows | 64BIT ]`n"
   
 # Get license (either from parameters or user input)
 if ([string]::IsNullOrEmpty($license) ) {
@@ -137,6 +192,9 @@ DownloadDataFiles -license $License      # comment out this line if using DQS Re
   
 # Download dll(s)
 DownloadDlls -license $License
+
+# Download wrapper and com folder
+DownloadWrappers -license $License
   
 # Check if all dll(s) have been downloaded. Exit script if missing
 $DLLsAreDownloaded = CheckDLLs
@@ -148,7 +206,6 @@ if (!$DLLsAreDownloaded) {
 }
   
 Write-Host "All file(s) have been downloaded/updated! "
-  
   
 # Start
 # Build project

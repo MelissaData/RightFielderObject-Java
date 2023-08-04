@@ -59,7 +59,7 @@ public class MelissaRightFielderObjectWindowsJava {
 
       // Print user input
       System.out.println("\n================================== INPUTS ==================================\n");
-      System.out.println("\tRight Fielder Input: " + dataContainer.Input);
+      System.out.println("\t  Right Fielder Input: " + dataContainer.Input);
 
       // Execute Right Fielder Object
       rightFielderObject.ExecuteObjectAndResultCodes(dataContainer);
@@ -68,12 +68,12 @@ public class MelissaRightFielderObjectWindowsJava {
       System.out.println("\n================================== OUTPUT ==================================\n");
       System.out.println("\n\tRightFielder Object Information:");
       // System.out.println($"\t Right Fielder Input: {dataContainer.Input}");
-      System.out.println("\t          AddressLine1: " + rightFielderObject.mdRightFielderObj.GetAddress());
-      System.out.println("\t          AddressLine2: " + rightFielderObject.mdRightFielderObj.GetAddress2());
-      System.out.println("\t          AddressLine3: " + rightFielderObject.mdRightFielderObj.GetAddress3());
-      System.out.println("\t                  City: " + rightFielderObject.mdRightFielderObj.GetCity());
-      System.out.println("\t                 State: " + rightFielderObject.mdRightFielderObj.GetState());
-      System.out.println("\t                   Zip: " + rightFielderObject.mdRightFielderObj.GetPostalCode());
+      System.out.println("\t          Address Line 1: " + rightFielderObject.mdRightFielderObj.GetAddress());
+      System.out.println("\t          Address Line 2: " + rightFielderObject.mdRightFielderObj.GetAddress2());
+      System.out.println("\t          Address Line 3: " + rightFielderObject.mdRightFielderObj.GetAddress3());
+      System.out.println("\t                    City: " + rightFielderObject.mdRightFielderObj.GetCity());
+      System.out.println("\t                   State: " + rightFielderObject.mdRightFielderObj.GetState());
+      System.out.println("\t                     Zip: " + rightFielderObject.mdRightFielderObj.GetPostalCode());
       // rightFielderObject.mdRightFielderObj.GetFullNameNext();
       // System.out.println("\t FullName: " +
       // rightFielderObject.mdRightFielderObj.GetFullName());
@@ -104,12 +104,11 @@ public class MelissaRightFielderObjectWindowsJava {
       // rightFielderObject.mdRightFielderObj.GetUnrecognizedNext();
       // System.out.println("\t Unrecognized: " +
       // rightFielderObject.mdRightFielderObj.GetUnrecognized());
-
-      System.out.println("\t  Result Codes: " + dataContainer.ResultCodes);
+      System.out.println("\t            Result Codes: " + dataContainer.ResultCodes);
 
       String[] rs = dataContainer.ResultCodes.split(",");
       for (String r : rs) {
-        System.out.println("        " + r + ":"
+        System.out.println("              " + r + ":"
             + rightFielderObject.mdRightFielderObj.GetResultCodeDescription(r,
                 mdRightFielder.ResultCdDescOpt.ResultCodeDescriptionLong));
       }
