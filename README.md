@@ -25,7 +25,7 @@ And return
 
 ## Tested Environments
 - Windows 10 64-bit Java 19, Powershell 5.1
-- Melissa data files for 2024-Q3
+- Melissa data files for 2024-Q4
 
 ## Required Files and Programs
 
@@ -71,8 +71,8 @@ The console will then prompt you with the following warning shown in the image b
 
 #### Download this project
 ```
-$ git clone https://github.com/MelissaData/RightFielderObject-Java
-$ cd RightFielderObject-Java
+git clone https://github.com/MelissaData/RightFielderObject-Java
+cd RightFielderObject-Java
 ```
 
 #### Set up Melissa Updater 
@@ -108,24 +108,24 @@ There are two modes:
 
 	The script will prompt the user for the right fielder input, then use the provided right fielder input to test the Right Fielder Object. For example:
 	```
-	$ .\MelissaRightFielderObjectWindowsJava.ps1
+	.\MelissaRightFielderObjectWindowsJava.ps1
 	```
-    For quiet mode:
-    ```
-    $ .\MelissaRightFielderObjectWindowsJava.ps1 -quiet
-    ```
+	For quiet mode:
+	```
+	.\MelissaRightFielderObjectWindowsJava.ps1 -quiet
+	```
 - Command Line 
 
 	You can pass a right fielder input in ```-rfinput``` parameter and a license string in ```-license``` parameter to test the Right Fielder Object. For example:
 	```
-    $ .\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688"
-	$ .\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688" -license "<your_license_string>" 
-    ```
+	.\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688"
+	.\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688" -license "<your_license_string>" 
+	```
 	For quiet mode:
-    ```
-    $ .\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688" -quiet
-	$ .\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688" -license "<your_license_string>" -quiet
-    ```
+	```
+	.\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688" -quiet
+	.\MelissaRightFielderObjectWindowsJava.ps1 -rfinput "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688" -license "<your_license_string>" -quiet
+	```
 This is the expected output from a successful setup for interactive mode:
 
 
