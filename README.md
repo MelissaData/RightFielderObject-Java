@@ -71,8 +71,8 @@ The console will then prompt you with the following warning shown in the image b
 
 #### Download this project
 ```
-git clone https://git.melissadata.com/dtgroup/melissadataobjectexamples/java/melissarightfielderobjectwindowsjava.git
-cd melissarightfielderobjectwindowsjava
+git clone https://github.com/MelissaData/RightFielderObject-Java
+cd RightFielderObject-Java
 ```
 
 #### Set up Melissa Updater 
